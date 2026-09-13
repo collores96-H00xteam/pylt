@@ -1,6 +1,5 @@
 package com.example.remote;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -88,23 +87,6 @@ public class MainActivity extends AppCompatActivity {
                             .append(" type=").append(ep.getType())
                             .append(" maxPkt=").append(ep.getMaxPacketSize()).append("\n");
                 }
-            }
-
-            // Пробуем открыть и прочитать что-нибудь
-            try {
-                if (usbManager.hasPermission(d)) {
-                    UsbDeviceConnection c = usbManager.openDevice(d);
-                    if (c != null) {
-                        log.append("  -> openDevice OK\n");
-                        c.close();
-                    } else {
-                        log.append("  -> openDevice FAIL\n");
-                    }
-                } else {
-                    log.append("  -> нет разрешения (запрошу при запросе)\n");
-                }
-            } catch (Exception e) {
-                log.append("  -> ошибка: ").append(e.getMessage()).append("\n");
             }
         }
 
