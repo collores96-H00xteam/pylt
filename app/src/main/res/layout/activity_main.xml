@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="..."
+        android:layout_marginBottom="32dp"/>
+
+    <Spinner
+        android:id="@+id/brandSpinner"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnOn"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:text="ВКЛ"
+        android:textSize="24sp"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnOff"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:text="ВЫКЛ"
+        android:textSize="24sp"/>
+
+</LinearLayout>
