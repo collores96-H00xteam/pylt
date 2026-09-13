@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.usb.UsbConstants;
 import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
@@ -27,14 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context ctx, Intent intent) {
-            String action = intent.getAction();
-            if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
-                log.append("\n--- Подключено новое устройство ---\n");
-                scan();
-            } else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
-                log.append("\n--- Устройство отключено ---\n");
-                scan();
-            }
+            scan();
         }
     };
 
@@ -70,22 +62,19 @@ public class MainActivity extends AppCompatActivity {
             log.append("VID: 0x").append(String.format("%04X", d.getVendorId())).append("\n");
             log.append("PID: 0x").append(String.format("%04X", d.getProductId())).append("\n");
             log.append("Class: ").append(d.getDeviceClass()).append("\n");
-            log.append("Interfaces: ").append(d.getInterfaceCount()).append("\n");
 
             for (int i = 0; i < d.getInterfaceCount(); i++) {
                 UsbInterface iface = d.getInterface(i);
-                log.append("  iface ").append(i)
-                        .append(" class=").append(iface.getInterfaceClass())
-                        .append(" subclass=").append(iface.getInterfaceSubclass())
-                        .append(" proto=").append(iface.getInterfaceProtocol())
-                        .append(" ep=").append(iface.getEndpointCount()).append("\n");
+                log.append("iface ").append(i)
+                    .append(" class=").append(iface.getInterfaceClass())
+                    .append(" ep=").append(iface.getEndpointCount()).append("\n");
 
                 for (int j = 0; j < iface.getEndpointCount(); j++) {
                     UsbEndpoint ep = iface.getEndpoint(j);
-                    log.append("    ep").append(j)
-                            .append(" dir=").append(ep.getDirection() == UsbConstants.USB_DIR_OUT ? "OUT" : "IN")
-                            .append(" type=").append(ep.getType())
-                            .append(" maxPkt=").append(ep.getMaxPacketSize()).append("\n");
+                    log.append("  ep").append(j)
+                        .append(" dir=").append(ep.getDirection() == UsbConstants.USB_DIR_OUT ? "OUT" : "IN")
+                        .append(" type=").append(ep.getType())
+                        .append(" maxPkt=").append(ep.getMaxPacketSize()).append("\n");
                 }
             }
         }
