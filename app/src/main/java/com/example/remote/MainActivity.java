@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     private UsbManager usbManager;
     private TextView text;
-    private StringBuilder log = new StringBuilder();
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void scan() {
-        log.setLength(0);
+        StringBuilder log = new StringBuilder();
         log.append("USB Host: ").append(usbManager != null ? "есть" : "НЕТ").append("\n");
         if (usbManager == null) { text.setText(log); return; }
 
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
             log.append("\n=== ").append(d.getDeviceName()).append(" ===\n");
             log.append("VID: 0x").append(String.format("%04X", d.getVendorId())).append("\n");
             log.append("PID: 0x").append(String.format("%04X", d.getProductId())).append("\n");
-            log.append("Class: ").append(d.getDeviceClass()).append("\n");
 
             for (int i = 0; i < d.getInterfaceCount(); i++) {
                 UsbInterface iface = d.getInterface(i);
